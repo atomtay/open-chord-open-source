@@ -1,0 +1,17 @@
+Group members: Brian Leonard and Annabelle Taylor
+
+Name of application: Open Chord Open Source
+
+Target Audience: Our target audience is, in general, musicians. More specifically, it would best server amature musicians who play in their spare time (as opposed to professionally) and who do not have a group to play with or time to keep up with one.
+
+Problem to solve: Finding enough members to make up a band, combo, or other music group can be challenging; managing said band is even harder. Some people play instruments like bass or drums, and cannot very easily play solo. Our application makes it easy to reach out and find other musicians in this situation. Essentially, you can create a new project by recording yourself (say, laying down a drum track) and that becomes open source. Another musician can then go find your sound clip and layer their own track on top of it. Users can comment on and "like" other people's collaborations.
+
+To meet the CRUD requirements:
+-Users create their own profile and can upload their own soundclips to be used as open source projects
+-Users read data by clicking on other sound clips they are interested in and pulling them from our database
+-Users can update their profile like any other CRUD application (change profile picture, update what instruments they play/what genres they prefer, etc)
+-Users can delete their entire profile or individual sound clips if they so choose.
+
+The comments and likes that they post on sound clips will be posted in real time without a page reload, thus utilizing Ajax.
+
+Uniqueness: Most current web apps (like Bandcamp or Soundcloud) rely on each song uploaded being completed and only associated with one person. They are about promoting a personal brand. Our application brings the collaborative aspect of music to the digital sphere. No longer do people have to exist in the same physical place to make music together.
