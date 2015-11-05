@@ -1,11 +1,14 @@
 We're so glad you decided to join us. Please fill out the information below.
 <br/>
-<form method='post' action="cgi-bin/account.py">
+<form method='post' action='cgi-bin/createaccount.py'>
 	Name: <input name='_name' type=text size='50'> 
 	<br/>
 	Username: <input name='_user' type=text size='50'/>
 	<br/>
-	Password: <input name='_pass' type=text size='50'/>
+	Password: <input name='_pass' type=password size='50'/>
 	<br/>
+	Play any instruments? <input name='_instrument' type=text size='50'/>
+	<br/>
+	Tell us a little about yourself: <input name='_bio' type=text size='200'/>
 	<input type='submit'/>
 </form>
