@@ -1,35 +1,57 @@
 #!/usr/bin/env python
 
-import cgitb
-cgitb.enable()
-
+ 
 import cgi
 form = cgi.FieldStorage()
 
-username = form['_user'].value
-pw = form['_pass'].value
+def printNotLoggedInPage():
+	print "Content-type: text/html"
+	print ''# don't forget the extra newline!
+	print '<html>'
+	print '<body>'
+	print '<p>You are NOT yet logged in.</p>'
+	print '<form method="post" action="login.py">'
+	print 'Enter your usernamename:'
+	print '<input name="_user" type=text size="30"/>'
+	print 'Password:'
+	print '<input name="_pass" type=text size="30"/>'
+	print '<input type="submit"/>'
+	print '</form>'
+	print '</body></html>'
+
+def printLoggedInPage(user):
+	print "Content-type: text/html"
+	print ''# don't forget the extra newline!
+	print '<html>'
+	print '''<head>
+	</head>'''
+	print '<body>'
+	print 'hello ' + user
+	print '</body>'
+	print '</html>'
 
 import sqlite3
-
 conn = sqlite3.connect('accounts.db')
 c = conn.cursor()
-conn.commit()
 
-print 'Content-Type: text/html'
-print
-print '''
-<html>
-<head>
-	<title>Open Chord Open Source</title>
-</head>
-<body>
-	<h1>Open Chord Open Source</h1>
-'''
-for r in c.execute('select * from users where username=?;', [username]):
-	#print 'hi'
-	currentname=r[0]
-	print "Hello, " + currentname + "."
+loginUsername = form['_user'].value
+loginPassword = form['_pass'].value
+
+is_user = False
+for r in c.execute('select * from people where username=?', [loginUsername]):
+	is_user = True
+	if (r[2]==loginPassword):
+		printLoggedInPage(loginUsername)
+	else:
+		printNotLoggedInPage()
+if(!is_user):
+	printNotLoggedInPage()
+
+#for r in c.execute('select username from people'):
+#	if (r[1]==loginUsername):
+#		check=r[1]
+#
+i#f (check==None):
+#	printNotLoggedInPage()
+
 conn.close()
-print'''
-</body>
-</html>'''

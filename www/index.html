@@ -1,36 +1,45 @@
 <html>
 	<head>
 		<title>Open Chord Open Source</title>
-		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-		<script type="text/javascript">
-			$(document).ready(function() {
-  				console.log("Hello world!");
-  				login();
-  				create();
-			});
-
-			function login() {
-				$("#login").click(function() {
-					console.log('Log in');
-					$("#formcontent").load("loginscreen.html")
-				})
+  		<style>
+  			#content {
+  				text-align: center;
+  				background-color: white;
+  				margin-top: 10px;
 			}
 
-			function create() {
-				$("#create").click(function() {
-					console.log('Create an account');
-				$("#formcontent").load("createaccountscreen.html");
-				})
+			#logo{
+
+				width:60%;
+				height:60%;
+				margin-top: -10px;
 			}
-  		</script>
+			body {
+				font-size: 1.1em;
+				font-family: Verdana
+			}
+  		</style>
 	</head>
 
 	<body>
-		<h1>Open Chord Open Source</h1>
-		<div id="formcontent">
-		<!-- -->
+	<img src="FinalLogo.jpg" id="logo"/>
+		<div id="content">
+			<div id="formcontent"><center>
+				<form method='post' action='cgi-bin/login.py'>
+					<table>
+						<tr>
+							<td>Username:</td>
+							<td><input id ='trial'name='_user' type=text size='50'/></td>
+						</tr>
+						<tr>
+							<td>Password:</td>
+							<td><input name='_pass' type=password size='50'/></td>
+						</tr>
+					</table>
+					<input type='submit' value='Login'/>
+				</form>
+			</center></div>
+			<p>New user? <a href="/newaccount.html">Create an account.</a></p>
 		</div>
-		<button id="login">Log In</button> <button id="create">Create an Account</button>
 	</body>
 </html>

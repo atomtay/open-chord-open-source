@@ -1,0 +1,78 @@
+<html>
+	<head>
+		<title>Open Chord Open Source | Create an Account</title>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+  				console.log("Hello world!");
+
+  				$("td").get(0).focus({
+        			console.log("Help plz")
+				});
+			});
+  		</script>
+
+  		<style>
+			#logo{
+				width:60%;
+				height:60%;
+				margin-top: -10px;
+			}
+  			#content {
+  				text-align: center;
+  				background-color: white;
+  				margin-top: 10px;
+			}
+
+			body {
+				font-size: 1.1em;
+				font-family: Verdana
+			}
+  		</style>
+	</head>
+
+	<body>
+		<img src="FinalLogo.jpg" id="logo"/>
+		<div id="content">
+	
+			<div id="formcontent"><center>
+				<form method='post' action='cgi-bin/login.py'>
+					<table>
+						<th>*Required</th>
+						<tr>
+							<td>Name:</td>
+							<td><input name='_name' type=text size='50'/></td>
+						</tr>
+						<tr>
+							<td>Username:</td>
+							<td><input name='_user' type=text size='50'/></td>
+						</tr>
+						<tr>
+							<td>Password:</td>
+							<td><input name='_pass' type=password size='50'/></td>
+						</tr>
+						<tr>
+							<td>Confirm password:</td>
+							<td><input name='_confirmpass' type=password size='50'/></td>
+						</tr>
+						<tr>
+							<td><span id="isSame"></span></td>
+						</tr>
+
+						<th>Optional</th>
+						<tr>
+							<td>Location:</td>
+							<td><input name='_location' type=text size='50'/></td>
+						</tr>
+						<tr>
+							<td>Bio:</td>
+							<td> </td>
+						</tr>
+					</table>
+					<input type='submit' value='Create an account'/>
+				</form>
+			</center></div>
+		</div>
+	</body>
+</html>

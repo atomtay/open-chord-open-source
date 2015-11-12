@@ -9,6 +9,7 @@ form = cgi.FieldStorage()
 name = form['_name'].value
 username = form['_user'].value
 pw = form['_pass'].value
+instruments = form['_instrument'].value
 
 import sqlite3
 
@@ -31,8 +32,7 @@ print'''	<body>
 		<h1>Open Chord Open Source</h1>
 '''
 print "Hello, " + name + "."
-print username
-print pw
+print "I play " + instruments
 
 #print 'THE GREAT DIVIDE'
 #for r in c.execute('select * from users;'):
