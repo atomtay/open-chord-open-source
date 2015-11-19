@@ -37,7 +37,7 @@
 		<div id="content">
 	
 			<div id="formcontent"><center>
-				<form method='post' action='cgi-bin/login.py'>
+				<form method='post' action='cgi-bin/createaccount.py'>
 					<table>
 						<th>*Required</th>
 						<tr>
@@ -62,12 +62,16 @@
 
 						<th>Optional</th>
 						<tr>
+							<td>Instrument:</td>
+							<td><input name='_instrument' type=text size='50'/></td>
+						</tr>
+						<tr>
 							<td>Location:</td>
 							<td><input name='_location' type=text size='50'/></td>
 						</tr>
 						<tr>
 							<td>Bio:</td>
-							<td> </td>
+							<td><input name='_Bio' type=text size='100'/> </td>
 						</tr>
 					</table>
 					<input type='submit' value='Create an account'/>

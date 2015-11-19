@@ -1,5 +1,21 @@
 <html>
 	<head>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript">
+			var x = true;
+			$(document).ready(function() {
+				if (localStorage['username'] !== undefined && x == true)
+				{
+					document.location = "/cgi-bin/login.py?_user=" + localStorage['username'] + "&_pass=cookie";
+					x = false;
+				}
+				$("#click").click(function() {
+					localStorage['username'] = $("#trial").val()
+				})
+			})
+			
+		</script>
+
 		<title>Open Chord Open Source</title>
   		<style>
   			#content {
@@ -21,7 +37,7 @@
   		</style>
 	</head>
 
-	<body>
+	<body id='page'>
 	<img src="FinalLogo.jpg" id="logo"/>
 		<div id="content">
 			<div id="formcontent"><center>
@@ -36,7 +52,7 @@
 							<td><input name='_pass' type=password size='50'/></td>
 						</tr>
 					</table>
-					<input type='submit' value='Login'/>
+					<input id = "click" type='submit' value='Login'/>
 				</form>
 			</center></div>
 			<p>New user? <a href="/newaccount.html">Create an account.</a></p>

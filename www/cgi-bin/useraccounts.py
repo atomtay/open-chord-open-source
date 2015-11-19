@@ -24,13 +24,13 @@ c = conn.cursor()
 #c.execute("insert into people values('Philip','pgbovineman', 'passcat', 'Rochester', '','');")
 for r in c.execute('select * from people;'):
 	print r
-
-loginUsername = "pgbovineman"
-r = c.execute('select * from people where username=?', [loginUsername])
-for n in r:
-	print r[n]
-
-checkPassword = c.execute('select password from people where username=?', [loginUsername])
+print 'brian'
+##loginUsername = "pgbovineman"
+#3r #= c.execute('select * from people where username=?', [loginUsername])
+#f#or n in r:
+#	print r[n]
+#
+#checkPassword = c.execute('select password from people where username=?', [loginUsername])
 
 conn.commit()
 conn.close()

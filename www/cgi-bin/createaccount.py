@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-
+#!"C:\Python27\python.exe"
 import cgitb
 cgitb.enable()
 
@@ -9,14 +8,16 @@ form = cgi.FieldStorage()
 name = form['_name'].value
 username = form['_user'].value
 pw = form['_pass'].value
+location = form['_location'].value
 instruments = form['_instrument'].value
+bio = form['_Bio'].value
 
 import sqlite3
 
 conn = sqlite3.connect('accounts.db')
 c = conn.cursor()
 
-c.execute('insert into users values (?, ?, ?)', (name, username, pw))
+c.execute('insert into people values (?, ?, ?, ?, ?,?)', (name, username, pw, location, instruments, bio))
 conn.commit()
 
 
@@ -31,7 +32,7 @@ print '''<html>
 print'''	<body>
 		<h1>Open Chord Open Source</h1>
 '''
-print "Hello, " + name + "."
+print "Hello, my name is " + name + "."
 print "I play " + instruments
 
 #print 'THE GREAT DIVIDE'
