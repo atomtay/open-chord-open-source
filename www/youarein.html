@@ -1,0 +1,77 @@
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript">
+
+		var profileLink = "cgi-bin/profile.py?user=" + localStorage['username']
+		$(document).ready(function() {
+			$("#logout").click(function() {
+				localStorage.removeItem('username');
+				console.log("You out dawg!");
+			});
+
+			$("#profileclick").click(function() {
+				console.log("Hello?");
+				$("#profileclick").attr("href", profileLink);
+				console.log("Hello!");
+			});
+			
+		})
+		</script>
+		<title>Open Chord Open Source</title>
+  		<style>
+  			#content {
+  				margin-top: 25px;
+  				margin-left: 5%;
+  				margin-right: 5%;
+			}
+
+			#logo{
+
+				width:40%;
+				height:40%;
+				margin-top: -10px;
+			}
+
+			#nav{
+				list-style-type: none;
+				display: inline;
+			}
+
+			#nav li{
+				display: inline;
+				font-size: 1.3em;
+				padding-left: 25px;
+			}
+			body {
+				font-size: 1.1em;
+				font-family: Verdana;
+			}
+
+			#us{
+				float:right;
+				width:250px;
+				height:250px;
+			}
+
+  		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<img src="../FinalLogo.jpg" id="logo"/>
+				<ul id = "nav">
+					<li><a href="/">Home</a></li>
+					<li><a id ="profileclick" href="/cgi-bin/profile.py">Profile</a></li>
+					<li><a href="">Find Tracks</a></li>
+					<li><a id="logout" href="/index.html">Logout</a></li>
+				</ul>
+			<div id="content">
+			<img src="../founders.jpg" id="us">
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id semper ligula, ut laoreet lacus. Nunc rutrum eget neque nec maximus. Morbi varius imperdiet felis, sed rutrum nibh. Praesent tincidunt rutrum libero, ac bibendum urna consectetur id. Nulla facilisi. Aliquam facilisis accumsan ipsum id vestibulum. Quisque fermentum tellus ac libero venenatis, eget bibendum turpis faucibus. Donec posuere convallis ullamcorper. Ut non dignissim ipsum. Morbi maximus odio tortor, in imperdiet nisi congue id. Etiam pharetra et urna sit amet auctor. Vivamus nulla metus, mattis laoreet tempor at, vulputate ut nibh. Aenean id sem turpis.</p>
+			<p>Donec ut diam molestie, fringilla dolor eu, porttitor mi. Proin semper consequat mattis. Nulla facilisi. Quisque iaculis libero pulvinar augue luctus egestas. Mauris pulvinar dolor in eros consectetur, eu condimentum urna hendrerit. Pellentesque eu nunc erat. Morbi in ligula arcu. Vestibulum nec nibh a enim hendrerit tincidunt. In hac habitasse platea dictumst. Nam vel efficitur dui.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id semper ligula, ut laoreet lacus. Nunc rutrum eget neque nec maximus. Morbi varius imperdiet felis, sed rutrum nibh. Praesent tincidunt rutrum libero, ac bibendum urna consectetur id. Nulla facilisi.</p>
+			</div>
+		</div>
+	</body>
+</html>

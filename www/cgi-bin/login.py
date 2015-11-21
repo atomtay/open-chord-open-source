@@ -4,29 +4,56 @@
 import cgi
 form = cgi.FieldStorage()
 
+import Cookie
+import os
+
 def printNotLoggedInPage():
 	print "Content-type: text/html"
 	print ''# don't forget the extra newline!
 	print '<html>'
+	print '''<head>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+  				console.log("Hello world!");
+  				$("#content").load("../unsuccessfullogin.html");
+			});
+		</script>
+
+	</head>
+		'''
 	print '<body>'
-	print '<p>You are NOT yet logged in.</p>'
-	print '<form method="post" action="login.py">'
-	print 'Enter your usernamename:'
-	print '<input name="_user" type=text size="30"/>'
-	print 'Password:'
-	print '<input name="_pass" type=text size="30"/>'
-	print '<input type="submit"/>'
-	print '</form>'
+	print '''
+		<div id="content">
+		u wrong
+		</div>
+'''
+
+
 	print '</body></html>'
+
+#Calls jQuery function to load another HTMl file so that we don't have to make a huge document in here :)
 
 def printLoggedInPage(user):
 	print "Content-type: text/html"
-	print ''# don't forget the extra newline!
+	print ''# don't forget the extra newline
 	print '<html>'
 	print '''<head>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+  				console.log("Hello world!");
+  				$("#content").load("../youarein.html");
+			});
+		</script>
 	</head>'''
 	print '<body>'
-	print 'hello ' + user
+	print '''
+		<div id="content">
+		</div>
+	'''
 	print '</body>'
 	print '</html>'
 
@@ -37,6 +64,7 @@ c = conn.cursor()
 loginUsername = form['_user'].value
 loginPassword = form['_pass'].value
 
+
 is_user = False
 for r in c.execute('select * from people where username=?', [loginUsername]):
 	is_user = True
@@ -44,14 +72,7 @@ for r in c.execute('select * from people where username=?', [loginUsername]):
 		printLoggedInPage(loginUsername)
 	else:
 		printNotLoggedInPage()
-if(!is_user):
+if(is_user==False):
 	printNotLoggedInPage()
-
-#for r in c.execute('select username from people'):
-#	if (r[1]==loginUsername):
-#		check=r[1]
-#
-i#f (check==None):
-#	printNotLoggedInPage()
-
+	
 conn.close()

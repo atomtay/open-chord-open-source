@@ -1,0 +1,95 @@
+<html>
+	<head>
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+			$("#logout").click(function() {
+				localStorage.removeItem('username');
+				console.log("You out dawg!");
+			})
+		})
+		</script>
+		<title>My Profile</title>
+  		<style>
+  			#content {
+  				background-color: white;
+  				margin-top: 10px;
+  				text-align: center;
+			}
+
+			#logo{
+				width:40%;
+				height:40%;
+				margin-top: -10px;
+			}
+
+			#nav{
+				list-style-type: none;
+				display: inline;
+			}
+
+			#nav li{
+				display: inline;
+				font-size: 1.3em;
+			}
+			body {
+				font-size: 1.1em;
+				font-family: Verdana
+			}
+
+		 /* nifty vertical line hack thanks to http://jsfiddle.net/8v1cpb0u/ */
+			hr.vertical{
+   				width: 0px;
+   				height: 100px; /* or height in PX */
+			} 
+  		</style>
+	</head>
+
+	<body>
+		<img src="../FinalLogo.jpg" id="logo"/>
+			<ul id = "nav">
+				<li><a href="/">Home</a></li>
+				<li><a href="/profile.html">Profile</a></li>
+				<li>Find Tracks</li>
+				<li><a id="logout" href="/">Logout</a></li>
+			</ul>
+		<div id="content">
+			<table cellpadding="10">
+				<tr>
+					<!--Picture, name, location, birthday, bio-->
+					<td>
+						<table border="1">
+							<tr>
+								<td rowspan="3">Image image image</td>
+								<th>[Name]</th>
+							</tr>
+							<tr>
+								<td><i>This user hasn't input their location</i></td>
+							</tr>
+							<tr>
+								<td><i>This user hasn't input their birthday</i></td>
+							</tr>
+							<tr>
+								<td colspan="2"><i>This user hasn't put anything in their bio</i></td>
+							</tr>
+						</table>
+					</td>
+					<!--Vertical line dividing two info sections-->
+					<td><hr class="vertical"/></td>
+					<!--User's music-->
+					<td>
+						<table border="1">
+							<tr>
+								<th>Solo Tracks</th>
+							</tr>
+							<tr>
+								<th>Remixes</th>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<button>Update your profile</button>
+	</body>
+</html>

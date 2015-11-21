@@ -25,12 +25,6 @@ c = conn.cursor()
 for r in c.execute('select * from people;'):
 	print r
 
-loginUsername = "pgbovineman"
-r = c.execute('select * from people where username=?', [loginUsername])
-for n in r:
-	print r[n]
-
-checkPassword = c.execute('select password from people where username=?', [loginUsername])
 
 conn.commit()
 conn.close()

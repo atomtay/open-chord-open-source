@@ -7,7 +7,7 @@
 			$(document).ready(function() {
   				console.log("Hello world!");
 
-  				$("td").get(0).focus({
+  				$("#isSame").get(0).focus({
         			console.log("Help plz")
 				});
 			});
@@ -37,7 +37,7 @@
 		<div id="content">
 	
 			<div id="formcontent"><center>
-				<form method='post' action='cgi-bin/login.py'>
+				<form method='post' action='cgi-bin/createaccount.py'>
 					<table>
 						<th>*Required</th>
 						<tr>
@@ -58,16 +58,6 @@
 						</tr>
 						<tr>
 							<td><span id="isSame"></span></td>
-						</tr>
-
-						<th>Optional</th>
-						<tr>
-							<td>Location:</td>
-							<td><input name='_location' type=text size='50'/></td>
-						</tr>
-						<tr>
-							<td>Bio:</td>
-							<td> </td>
 						</tr>
 					</table>
 					<input type='submit' value='Create an account'/>
