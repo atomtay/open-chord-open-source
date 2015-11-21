@@ -12,19 +12,6 @@ import sqlite3
 conn = sqlite3.connect('accounts.db')
 c = conn.cursor()
 
-currentUser = form["user"].value
-
-for r in c.execute('select * from people where username=?', [currentUser]):
-	name = r[0]
-	username = r[1]
-	location = r[3]
-	instruments = r[4]
-	bio = r[5]
-title = name + "'s Profile"
-
-if(location==None):
-	location = "<i>This user hasn't input their location yet</i>"
-
 # prints a minimal HTTP header
 print 'Content-Type: text/html'
 print
@@ -32,9 +19,8 @@ print '<html>'
 print '	<head>'
 
 print '<title>'
-print title
+print 'Tracks'
 print '</title>'
-	#http://papermashup.com/read-url-get-variables-withjavascript/
 print '''
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 		<script type="text/javascript">
@@ -57,33 +43,6 @@ print '''
 				$("#profileLink").attr("href", profileLink);
 				console.log("Hello!");
 			});
-'''			
-print'''
-			function getUrlVars() {
-				var vars = {};
-				var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-					vars[key] = value;
-				});
-				return vars;
-			};
-'''
-print'''
-			var first = getUrlVars()["user"];
-
-			if(localStorage["username"]==first){
-				console.log(first);
-				$("#ifOwnAccount").html('<a id="update" href="">Update</a>');
-				$("#update").click(function() {
-					console.log("Hello?");
-					$("#update").attr("href", updateLink);
-					console.log("Hello!");
-				});
-
-'''
-#<a id="update" href="http://google.com">Update</a>);
-
-print'''			}
-
 		})
 		</script>
 		<style>
@@ -136,44 +95,12 @@ print'''
 		</ul>'''
 print'''
 		<div id="content">
-		<table cellpadding="10">
-			<tr>
-				<!--Picture, name, location, birthday, bio-->
-				<td>
-					<table border="1">
-						<tr>'''
-
-print '<td rowspan="3">' + 'Image image image' + '</td>'
-							
-
-print '<th>'+name+'</th>'
-print '</tr>'
-print '<tr>'
-print '<td>'+location+'</td>'
-print '</tr><tr>'
-print'<td><i>This user hasn\'t input their birthday</i></td>'
-print '</tr><tr>'
-print '<td colspan="2"><i>This user hasn\'t put anything in their bio</i></td>'
-print '</tr>'
-print '</table>'
+'''
+for r in c.execute('select username from people'):
+	usersUsername = r[0]
+	url="/cgi-bin/profile.py?user="+usersUsername
+	print '<a href="'+url+'">'+r[0]+'</a><br/>'
 print'''
-					</td>
-					<!--Vertical line dividing two info sections-->
-					<td><hr class="vertical"/></td>
-					<!--User's music-->
-					<td>
-						<table border="1">
-							<tr>
-								<th>Solo Tracks</th>
-							</tr>
-							<tr>
-								<th>Remixes</th>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-			<span id="ifOwnAccount"></span>
 		</div>
 
 '''

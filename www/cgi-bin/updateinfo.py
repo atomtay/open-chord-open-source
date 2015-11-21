@@ -114,7 +114,7 @@ print'''<img src="../FinalLogo.jpg" id="logo"/>
 		<ul id = "nav">
 			<li><a href="/">Home</a></li>
 			<li><a id ="profileLink" href="/">Profile</a></li>
-			<li><a href="">Find Tracks</a></li>
+			<li><a href="/cgi-bin/tracks.py">Find Tracks</a></li>
 			<li><a id="logout" href="/">Logout</a></li>
 		</ul>'''
 
