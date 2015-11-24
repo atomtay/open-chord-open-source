@@ -1,0 +1,72 @@
+<html id="bigContent">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	
+	<script type="text/javascript">
+	
+		var profileLink = "/cgi-bin/profile.py?user=" + localStorage['username']
+			$(document).ready(function() {
+			$("#logout").click(function() {
+				localStorage.removeItem('username');
+				console.log("You out dawg!");
+			});
+
+			$("#profileLink").click(function() {
+				console.log("Hello?");
+				$("#profileLink").attr("href", profileLink);
+				console.log("Hello!");
+			});
+			$("#submit").click(function(){
+				console.log("crabsauce");
+				var newName = $('#grabName').val();
+				var newLocation = $('#grabLocation').val();
+				var newInstruments = $('#grabInstruments').val();
+				var newBio = $('#grabBio').val();
+				var username = localStorage['username'];
+				$.ajax({
+					type: "POST",
+					url: "users/update/" + username,
+					dataType: "text",
+					data: {
+						'name': newName,
+						'location': newLocation,
+						'instruments': newInstruments,
+						'bio': newBio,
+						'user': username
+					},
+					success: function(data) {
+						console.log(data);
+						document.location = "profile.html";
+					},
+					error: function() {
+						console.log('nothing');
+					},
+
+					});
+				});
+		});
+	
+		</script>
+
+<table>
+  <tr>
+    <td>Name:</td>
+    <td><input name="_name" type=text size="50" id="grabName" value='+name+'/></td>
+
+  </tr>
+  <tr>
+  <td>Location:</td>
+  <td><input name="_location" type=text size="50" id="grabLocation" value='+location+'/></td></tr>
+  <tr><td>Birthday:</td>
+  	<td><input name="_instruments" type=text size="50" id="grabInstruments" value='+instruments+'/></td>
+  	</tr>
+  <tr>
+  	<td>Bio:</td>
+  	<td><textarea rows="4" cols="53" name="comment" id="grabBio" form="main"></textarea></td>
+  	</tr>
+  <tr>
+  	<td>Picture:</td>
+  	<td>Will put a change picture thing here...</td>
+  </tr>
+</table>
+<input type='submit' id='submit'/>
+</html>5

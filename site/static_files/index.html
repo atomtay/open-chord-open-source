@@ -1,0 +1,91 @@
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript">
+			var x = true;
+			$(document).ready(function() {
+				if (localStorage['username'] !== undefined && x == true)
+				{
+					document.location = "../youarein.html"
+					x = false;
+				}
+				$("#click").click(function() {
+					$.ajax({
+						url: "users/login/" + $("#trial").val(),
+						type: "POST",
+						dataType: "text",
+						data : {
+							pass : $("#pass").val()
+						},
+						success: function(data) {
+							console.log(data);
+							if (data == "OK")
+							{
+								localStorage['username'] = $("#trial").val();
+								document.location = "youarein.html";
+							}
+							else {
+								document.location = 'index.html';
+							}
+						},
+					});
+					document.location = 'index.html';
+				});
+			});
+			
+		</script>
+
+		<title>Open Chord Open Source</title>
+  		<style>
+  			html, body{
+  				width: 99%;
+  				margin: 0 auto;
+  			}
+
+  			table{
+  				margin: 0 auto;
+  			}
+
+  			#content {
+  				text-align: center;
+  				background-color: white;
+  				margin-top: 10px;
+			}
+			#logo{
+				width:60%;
+				height:60%;
+				margin-top: -10px;
+			}
+			body {
+				font-size: 1.1em;
+				font-family: Verdana
+			}
+
+			#click{
+				margin: 10px;
+				font-size: 1.05em;
+				font-family: Verdana
+			}
+  		</style>
+	</head>
+
+	<body id='page'>
+		<div id="content">
+			<img src="../FinalLogo.jpg" id="logo"/>
+			<div id="formcontent">
+					<table>
+						<tr>
+							<td>Username:</td>
+							<td><input id ='trial'name='_user' type=text size='50'/></td>
+						</tr>
+						<tr>
+							<td>Password:</td>
+							<td><input name='_pass' id = "pass" type=password size='50'/></td>
+						</tr>
+					</table>
+					<input id = "click" type='submit' value='Login'/>
+			</div>
+			New user? <a href="/newaccount.html">Create an account.</a>
+		</div>
+	</body>
+</html>

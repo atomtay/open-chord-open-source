@@ -1,0 +1,62 @@
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$.ajax({
+					url: "users/" + localStorage['username'],
+					type: "GET",
+					dataType:"json",
+					success: function( data ) {
+						console.log("You got data!", data);
+						$("#name").text(data.name);
+						if(data.location !== "")
+							$("#location").text(data.location);
+						if(data.instruments !== "")
+							$("#instruments").text(data.instruments);
+						if(data.bio !== "")
+							$("#bio").text(data.bio);
+
+
+					},
+				});
+				$("#update").click(function() {
+					$("#content").load("update.html");
+				});
+			});
+		</script>
+
+<table cellpadding="10">
+	<tr>
+		<!--Picture, name, location, birthday, bio-->
+		<td>
+			<table border="1">
+				<tr>
+					<td rowspan="3">Image image image</td>
+					<th id="name">[Name]</th>
+				</tr>
+				<tr>
+					<td><i id="location">This user hasn't input their location</i></td>
+				</tr>
+				<tr>
+				<td><i id="instruments">This user hasn't input their instruments</i></td>
+				</tr>
+				<tr>
+		<td colspan="2"><i id="bio">This user hasn't put anything in their bio</i></td>
+	</tr>
+</table>
+					</td>
+					<!--Vertical line dividing two info sections-->
+					<td><hr class="vertical"/></td>
+					<!--User's music-->
+					<td>
+						<table border="1">
+							<tr>
+								<th>Solo Tracks</th>
+							</tr>
+							<tr>
+								<th>Remixes</th>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<button id="update">Update your profile</button>

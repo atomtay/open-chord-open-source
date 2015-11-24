@@ -1,0 +1,93 @@
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$("#content").load("home_screen.html");
+
+			$("#logout").click(function() {
+				localStorage.removeItem('username');
+				document.location = "index.html";
+			});
+
+			$("#profileclick").click(function() {
+				console.log("Hello?");
+				$("#content").load("profile.html");
+				console.log("Hello!");
+			});
+			$("#home").click(function() {
+				$("#content").load("home_screen.html");
+			});
+			$("#tracks").click(function() {
+				console.log("yes");
+				$.ajax({
+					url: "/all",
+					type: "GET",
+					dataType: "json",
+					success: function(data) {
+						console.log(data);
+						var str = "";
+						for (user in data) {
+							console.log(user);
+							str += "<div><a href='users/" + user[0] + "'>" + user[0] + "</a></div>";
+						}
+						$("#content").html(str);
+					},
+				});
+			});
+			
+		});
+		</script>
+		<title>Open Chord Open Source</title>
+  		<style>
+  			#content {
+  				margin-top: 25px;
+  				margin-left: 5%;
+  				margin-right: 5%;
+			}
+
+			#logo{
+
+				width:40%;
+				height:40%;
+				margin-top: -10px;
+			}
+
+			#nav{
+				list-style-type: none;
+				display: inline;
+			}
+
+			#nav li{
+				display: inline;
+				font-size: 1.3em;
+				padding-left: 25px;
+			}
+			body {
+				font-size: 1.1em;
+				font-family: Verdana;
+			}
+
+			#us{
+				float:right;
+				width:250px;
+				height:250px;
+			}
+
+  		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<img src="../FinalLogo.jpg" id="logo"/>
+				<ul id = "nav">
+					<li><button id="home">Home</button></li>
+					<li><button id="profileclick" >Profile</button></li>
+					<li><button id="tracks">Find Tracks</button></li>
+					<li><button id="logout">Logout</button></li>
+				</ul>
+			<div id="content">
+			</div>
+		</div>
+	</body>
+</html>

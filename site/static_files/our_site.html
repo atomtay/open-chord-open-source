@@ -1,0 +1,49 @@
+<html>
+We're so glad you decided to join us. Please fill out the information below.
+<head>
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+
+		$(document).ajaxError(function() {
+			alert("Sorry, there was a problem!");
+		});
+		$("#createButton").click(function() {
+			console.log("yes");
+			$.ajax({
+				url: "users/",
+				type: "POST",
+				dataType: "text",
+				data : {
+					name : $("#name").val(),
+					user: $("#user").val(),
+					pass : $("#pass").val()
+				},
+				success: function(data) {
+					console.log("Data!", data);
+				},
+			});
+		});
+	});
+	
+	</script>
+<br/>
+<center><table>
+  <tr>
+    <td>Name:</td>
+    <td><input name='_name' id="name" type=text size='50'></td> 
+  </tr>
+  <tr>
+    <td>Username:</td>
+    <td><input name='_user' id="user"type=text size='50'/></td> 
+  </tr>
+  <tr>
+    <td>Password:</td>
+    <td><input name='_pass' id="pass" type=password size='50'/></td> 
+  </tr>
+</table></center>
+<p>
+	<button id="createButton">Submit</button>
+</p>
+</html>

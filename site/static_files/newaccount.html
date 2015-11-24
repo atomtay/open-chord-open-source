@@ -1,0 +1,89 @@
+<html>
+	<head>
+		<title>Open Chord Open Source | Create an Account</title>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+  				console.log("Hello world!");
+
+  				$(document).ajaxError(function() {
+					alert("Sorry, there was a problem!");
+				});
+				$("#createButton").click(function() {
+					if($("#pass").val() !== $("#confpass").val())
+						$("#isSame").text("Both passwords must match");
+					else{
+						$.ajax({
+							url: "users/",
+							type: "POST",
+							dataType: "text",
+							data : {
+								name : $("#name").val(),
+								user: $("#user").val(),
+								pass : $("#pass").val()
+							},
+							success: function(data) {
+								console.log("Data!", data);
+								localStorage['username'] =  $("#name").val();
+								document.location = "index.html";
+							},
+						});
+					}
+					
+				});
+			});
+  		</script>
+
+  		<style>
+			#logo{
+				width:60%;
+				height:60%;
+				margin-top: -10px;
+			}
+
+  			#content {
+  				text-align: center;
+  				background-color: white;
+  				margin-top: 10px;
+			}
+
+			body {
+				font-size: 1.1em;
+				font-family: Verdana
+			}
+  		</style>
+	</head>
+
+	<body>
+		<img src="FinalLogo.jpg" id="logo"/>
+		<div id="content">
+	
+			<div id="formcontent"><center>
+					<table>
+						<th>*Required</th>
+						<tr>
+							<td>Name:</td>
+							<td><input name='_name' id="name" type=text size='50'/></td>
+						</tr>
+						<tr>
+							<td>Username:</td>
+							<td><input name='_user' id="user" type=text size='50'/></td>
+						</tr>
+						<tr>
+							<td>Password:</td>
+							<td><input name='_pass' id="pass" type=password size='50'/></td>
+						</tr>
+						<tr>
+							<td>Confirm password:</td>
+							<td><input name='_confirmpass'id="confpass" type=password size='50'/></td>
+						</tr>
+						<tr>
+							<td><span id="isSame"></span></td>
+						</tr>
+					</table>
+					<button id="createButton">Create Profile</button>
+			</center></div>
+		</div>
+	</body>
+</html>

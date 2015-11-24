@@ -1,0 +1,54 @@
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$.ajax({
+		url: "users/all/",
+		type: "GET",
+		dataType: "json",
+		success: function(data) {
+			var str = "";
+			for (user in data) {
+				str += "<div><a href='users/" + user.username + "'>" + user.username + "</a></div>";
+			}
+			$("#content").html(str);
+		},
+	});
+});
+</script>
+<style>
+  			#content {
+  				margin-top: 25px;
+  				margin-left: 5%;
+  				margin-right: 5%;
+			}
+
+			#logo{
+
+				width:40%;
+				height:40%;
+				margin-top: -10px;
+			}
+
+			#nav{
+				list-style-type: none;
+				display: inline;
+			}
+
+			#nav li{
+				display: inline;
+				font-size: 1.3em;
+				padding-left: 25px;
+			}
+			body {
+				font-size: 1.1em;
+				font-family: Verdana;
+			}
+
+		 /* nifty vertical line hack thanks to http://jsfiddle.net/8v1cpb0u/ */
+			hr.vertical{
+   				width: 0px;
+   				height: 100px; /* or height in PX */
+			} 
+  		</style>
+
+<div id="content"> </div>
