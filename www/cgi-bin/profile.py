@@ -28,7 +28,7 @@ for r in c.execute('select * from people where username=?', [currentUser]):
 	name = r[0]
 	username = r[1]
 	location = r[3]
-	instruments = r[4]
+	birthday = r[4]
 	bio = r[5]
 title = name + "'s Profile"
 
@@ -160,9 +160,9 @@ print '</tr>'
 print '<tr>'
 print '<td>'+location+'</td>'
 print '</tr><tr>'
-print'<td><i>This user hasn\'t input their birthday</i></td>'
+print'<td>'+birthday+'</td>'
 print '</tr><tr>'
-print '<td colspan="2"><i>This user hasn\'t put anything in their bio</i></td>'
+print '<td colspan="2">'+bio+'</td>'
 print '</tr>'
 print '</table>'
 print'''

@@ -60,12 +60,31 @@ print'''
 				var newLocation = $('#grabLocation').val();
 				var newBirthday = $('#grabBirthday').val();
 				var newBio = $('#grabBio').val();
+				$.ajax({
+					type: "POST",
+					url: "doUpdate.py",
+					data: {
+						user: localStorage['username'],
+						name: newName,
+						location: newLocation,
+						birthday: newBirthday,
+						bio: newBio,
+					},
+					success: function(data) {
+						console.log(data);
+						document.location = "../youarein.html";
+					},
+					error: function() {
+						console.log('nothing');
+						document.location = "../youarein.html";
+					}
+					});
 '''
 #c.execute("update people set name=? where username=?", ['newName', currentUser])
 
 print '''
-			})
-		})
+			});
+		});
 	
 		</script>
 '''
@@ -120,7 +139,6 @@ print'''<img src="../FinalLogo.jpg" id="logo"/>
 
 print '''
 <div id="content">
-<form method='post' id='main' action="updateinfo.py">
 <table>
   <tr>
     <td>Name:</td>
@@ -151,7 +169,6 @@ print'''</tr>
   </tr>
 </table>
 <input type='submit' id='submit'/>
-</form>
 </div>
 '''
 
