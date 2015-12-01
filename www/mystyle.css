@@ -1,0 +1,33 @@
+#content {
+  				margin-top: 25px;
+  				margin-left: 5%;
+  				margin-right: 5%;
+			}
+
+			#logo{
+
+				width:40%;
+				height:40%;
+				margin-top: -10px;
+			}
+
+			#nav{
+				list-style-type: none;
+				display: inline;
+			}
+
+			#nav li{
+				display: inline;
+				font-size: 1.3em;
+				padding-left: 25px;
+			}
+			body {
+				font-size: 1.1em;
+				font-family: Verdana;
+			}
+
+		 /* nifty vertical line hack thanks to http://jsfiddle.net/8v1cpb0u/ */
+			hr.vertical{
+   				width: 0px;
+   				height: 100px; /* or height in PX */
+			} 

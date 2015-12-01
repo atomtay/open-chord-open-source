@@ -21,23 +21,25 @@ if (pw==confirmpw):
 	
 conn.commit()
 
-
-# prints a minimal HTTP header
-print 'Content-Type: text/html'
-print
-
-print '''<html>
-	<head>
-		<title>Open Chord Open Source</title>
-	</head>'''
-print'''	<body>
-		<h1>Open Chord Open Source</h1>
+print "Content-type: text/html"
+print ''# don't forget the extra newline
+print '<html id="page">'
+print '''<head>
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+ 				console.log("Hello world!");
+ 				$("#page").load("../youarein.html");
+		});
+	</script>
+</head>'''
+print '<body>'
+print '''
+	<div id="content">
+	</div>
 '''
-print "Hello, " + name + "."
+print '</body>'
+print '</html>'
+
 
 conn.close()
-
-
-print '''
-	</body>
-</html>'''

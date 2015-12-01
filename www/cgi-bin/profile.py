@@ -12,6 +12,16 @@ import sqlite3
 conn = sqlite3.connect('accounts.db')
 c = conn.cursor()
 
+import os
+
+try: # Windows needs stdio set for binary mode.
+    import msvcrt
+    msvcrt.setmode (0, os.O_BINARY) # stdin  = 0
+    msvcrt.setmode (1, os.O_BINARY) # stdout = 1
+except ImportError:
+    pass
+
+
 currentUser = form["user"].value
 
 for r in c.execute('select * from people where username=?', [currentUser]):
@@ -80,7 +90,6 @@ print'''
 				});
 
 '''
-#<a id="update" href="http://google.com">Update</a>);
 
 print'''			}
 
@@ -139,7 +148,7 @@ print'''
 		<table cellpadding="10">
 			<tr>
 				<!--Picture, name, location, birthday, bio-->
-				<td>
+				<td valign="top">
 					<table border="1">
 						<tr>'''
 
@@ -161,19 +170,27 @@ print'''
 					<!--Vertical line dividing two info sections-->
 					<td><hr class="vertical"/></td>
 					<!--User's music-->
-					<td>
+					<td valign="top">
 						<table border="1">
 							<tr>
 								<th>Solo Tracks</th>
 							</tr>
 							<tr>
+								<td><a href="save_file.py">Add a new track</a>
+								</td>
+							</tr>
+							<tr>
 								<th>Remixes</th>
+							</tr>
+							<tr>
+								<td>Add a new track
+								</td>
 							</tr>
 						</table>
 					</td>
 				</tr>
 			</table>
-			<span id="ifOwnAccount"></span>
+			<span id="ifOwnAccount">It me?</span>
 		</div>
 
 '''
