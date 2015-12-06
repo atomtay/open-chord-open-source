@@ -49,11 +49,7 @@ def printLoggedInPage(user):
 			});
 		</script>
 	</head>'''
-	print '<body>'
-	print '''
-		<div id="content">
-		</div>
-	'''
+	print '<body id="content">'
 	print '</body>'
 	print '</html>'
 
@@ -71,6 +67,8 @@ for r in c.execute('select * from people where username=?', [loginUsername]):
 	if (r[2]==loginPassword):
 		printLoggedInPage(loginUsername)
 	else:
+		printNotLoggedInPage()
+	if (r[0]==None):
 		printNotLoggedInPage()
 if(is_user==False):
 	printNotLoggedInPage()

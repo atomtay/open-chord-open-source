@@ -34,6 +34,10 @@ title = name + "'s Profile"
 
 if(location==None):
 	location = "<i>This user hasn't input their location yet</i>"
+if(birthday==None):
+	birthday = "<i>This user hasn't input their location yet</i>"
+if(bio==None):
+	bio = "<i>This user hasn't input their location yet</i>"
 
 # prints a minimal HTTP header
 print 'Content-Type: text/html'
@@ -50,25 +54,20 @@ print '''
 		<script type="text/javascript">
 		var profileLink = "/cgi-bin/profile.py?user=" + localStorage['username']
 		var updateLink = "/cgi-bin/updateinfo.py?user=" + localStorage['username']
+		var deleteLink = "/cgi-bin/delete.py?user=" + localStorage['username']
 			$(document).ready(function() {
+				console.log(deleteLink);
 			$("#logout").click(function() {
 				localStorage.removeItem('username');
 				console.log("You out dawg!");
 			});
 
-			$("#update").click(function() {
-				console.log("Hello?");
-				$("#update").attr("href", updateLink);
-				console.log("Hello!");
-			});
-
+			
 			$("#profileLink").click(function() {
 				console.log("Hello?");
 				$("#profileLink").attr("href", profileLink);
 				console.log("Hello!");
 			});
-'''			
-print'''
 			function getUrlVars() {
 				var vars = {};
 				var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -76,24 +75,27 @@ print'''
 				});
 				return vars;
 			};
-'''
-print'''
+
 			var first = getUrlVars()["user"];
 
 			if(localStorage["username"]==first){
 				console.log(first);
-				$("#ifOwnAccount").html('<a id="update" href="">Update</a>');
+				$("#ifOwnAccount").html('<a id="update" href="">Update</a><br/><a id="delete" href="">Delete account</a>');
 				$("#update").click(function() {
 					console.log("Hello?");
 					$("#update").attr("href", updateLink);
 					console.log("Hello!");
 				});
 
-'''
-
-print'''			}
+				$("#delete").click(function() {
+					console.log("!");
+					$("#delete").attr("href", deleteLink);
+				});
+			}
 
 		})
+'''
+print'''
 		</script>
 		<style>
   			#content {
