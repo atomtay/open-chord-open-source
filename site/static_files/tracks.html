@@ -1,34 +1,83 @@
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-	$.ajax({
-		url: "users/all/",
-		type: "GET",
-		dataType: "json",
-		success: function(data) {
-			var str = "";
-			for (user in data) {
-				str += "<div><a href='users/" + user.username + "'>" + user.username + "</a></div>";
-			}
-			$("#content").html(str);
-		},
-	});
-});
-</script>
-<style>
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$.ajax({
+				url: "all/",
+				type: "GET",
+				dataType: "json",
+				success: function(data) {
+					var count = 0;
+					console.log(data);
+					for(e in data){
+						$("#userslist").append("<option value='" + data[count].username + "''>" + data[count].username + "</option>");
+						count++;
+					}
+				},
+			});
+			$.ajax({
+				url: "instruments",
+				type: "GET",
+				dataType: "json",
+				success: function(data) {
+					var unique = [];
+					for(e in data){
+						if(unique.indexOf(data[e].instruments) == -1){
+							unique.push(data[e].instruments)
+							$("#ilist").append("<option value='" + data[e].instruments + "'>" + data[e].instruments + "</option>");
+						}
+						
+					}
+				},
+			});
+			$("#ilist").change(function() {
+				$(".added").remove();
+				$.ajax({
+					url: "instruments/" + $("#ilist").val(),
+					type: "GET",
+					dataType: "json",
+					json: true,
+					success: function(data){
+						console.log(data);
+						for(e in data){
+							$("#iusers").append("<option class='added' value='" + data[e].username + "'>" + data[e].username + "</option>");
+						}
+					},
+				});
+			});
+			$("#now").click(function() {
+				if($("#iusers").val()){
+					localStorage['viewuser'] = $("#iusers").val();
+					document.location = "profile.html";
+				}
+			});
+			$("#profileclick").click(function() {
+				document.location = "profile.html";
+			});
+			$("#home").click(function() {
+				document.location = "youarein.html";
+			});
+			$("#tracks").click(function() {
+				document.location = "tracks.html";
+			});
+			$("#go").click(function() {
+				localStorage['viewuser'] = $("#userslist").val();
+				document.location = "profile.html"
+			})
+		});
+		</script>
+		<style>
   			#content {
   				margin-top: 25px;
   				margin-left: 5%;
   				margin-right: 5%;
 			}
-
 			#logo{
-
 				width:40%;
 				height:40%;
 				margin-top: -10px;
 			}
-
 			#nav{
 				list-style-type: none;
 				display: inline;
@@ -43,12 +92,38 @@ $(document).ready(function() {
 				font-size: 1.1em;
 				font-family: Verdana;
 			}
-
-		 /* nifty vertical line hack thanks to http://jsfiddle.net/8v1cpb0u/ */
+			 /* nifty vertical line hack thanks to http://jsfiddle.net/8v1cpb0u/ */
 			hr.vertical{
    				width: 0px;
    				height: 100px; /* or height in PX */
 			} 
-  		</style>
-
-<div id="content"> </div>
+		</style>
+	</head>
+	<body>
+		<div id="wrapper">
+			<img src="../FinalLogo.jpg" id="logo"/>
+				<ul id = "nav">
+					<li><button id="home">Home</button></li>
+					<li><button id="profileclick" >Profile</button></li>
+					<li><button id="tracks">Find Tracks</button></li>
+					<li><button id="logout">Logout</button></li>
+				</ul>
+			<div id="content"> 
+				Search all users:
+				<select id="userslist">
+					<option selected="true" disabled="disabled" value="base">Select user</option>
+				</select>
+				<button id="go"> Go! </button>
+				<p>Or...</p>
+				Search by instrument:
+				<select id="ilist">
+					<option selected="true" disabled="disabled">Select Instrument</option>
+				</select>
+				<select id="iusers">
+					<option selected="true" disabled="disabled">Select musician</option>
+				</select>
+				<button id="now">Go!</button>
+			</div>
+		</div>
+	</body>
+</html>

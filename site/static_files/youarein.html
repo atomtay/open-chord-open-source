@@ -11,29 +11,13 @@
 			});
 
 			$("#profileclick").click(function() {
-				console.log("Hello?");
-				$("#content").load("profile.html");
-				console.log("Hello!");
+				document.location = "profile.html";
 			});
 			$("#home").click(function() {
-				$("#content").load("home_screen.html");
+				document.location = "youarein.html";
 			});
 			$("#tracks").click(function() {
-				console.log("yes");
-				$.ajax({
-					url: "/all",
-					type: "GET",
-					dataType: "json",
-					success: function(data) {
-						console.log(data);
-						var str = "";
-						for (user in data) {
-							console.log(user);
-							str += "<div><a href='users/" + user[0] + "'>" + user[0] + "</a></div>";
-						}
-						$("#content").html(str);
-					},
-				});
+				document.location = "tracks.html";
 			});
 			
 		});

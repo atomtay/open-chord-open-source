@@ -1,13 +1,12 @@
-<html>
+<html >
 	<head>
 		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 		<script type="text/javascript">
-			var x = true;
 			$(document).ready(function() {
-				if (localStorage['username'] !== undefined && x == true)
+				if (localStorage['username'] !== undefined)
 				{
-					document.location = "../youarein.html"
-					x = false;
+					//$("#this").load("../youarein.html");
+					document.location = "../youarein.html";
 				}
 				$("#click").click(function() {
 					$.ajax({

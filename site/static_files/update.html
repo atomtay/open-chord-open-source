@@ -1,19 +1,29 @@
 <html id="bigContent">
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-	
-	<script type="text/javascript">
-	
-		var profileLink = "/cgi-bin/profile.py?user=" + localStorage['username']
-			$(document).ready(function() {
-			$("#logout").click(function() {
-				localStorage.removeItem('username');
-				console.log("You out dawg!");
+	<head>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$("#uploader").click( function(){
+				$("#uploader").attr("action", "/upload/" + localStorage['username']);
 			});
-
-			$("#profileLink").click(function() {
-				console.log("Hello?");
-				$("#profileLink").attr("href", profileLink);
-				console.log("Hello!");
+			$("uploader").submit(function(){
+				document.location = "youarein.html";
+			})
+			$.ajax({
+				url: "users/" + localStorage['username'],
+				type: "GET",
+				dataType:"json",
+				success: function( data ) {
+					console.log("You got data!", data);
+					$("#grabName").attr("value",data.name);
+					if(data.location !== "")
+						$("#grabLocation").attr("value", data.location);
+					if(data.instruments !== "")
+						$("#grabInstruments").attr("value",data.instruments);
+					if(data.bio !== "")
+						$("#grabBio").text(data.bio);
+				},
 			});
 			$("#submit").click(function(){
 				console.log("crabsauce");
@@ -23,8 +33,8 @@
 				var newBio = $('#grabBio').val();
 				var username = localStorage['username'];
 				$.ajax({
-					type: "POST",
-					url: "users/update/" + username,
+					type: "PUT",
+					url: "users/" + username,
 					dataType: "text",
 					data: {
 						'name': newName,
@@ -40,33 +50,124 @@
 					error: function() {
 						console.log('nothing');
 					},
-
-					});
 				});
+			});
+			$("#uploader").submit(function(e) {
+				e.preventDefault();
+
+				var data = new FormData(jQuery('form')[0]);
+
+				$.ajax({
+		            url : "/uploads/images/" + localStorage['username'],
+		            type : 'POST',
+		            data : data,
+		            cache: false,
+		            contentType: false,
+		            processData: false,
+		            success: function(data){
+		                document.location = "profile.html";
+		            }
+	       	 	});
+			});
+			$("#logout").click(function() {
+				localStorage.removeItem('username');
+				document.location = "index.html";
+			});
+
+			$("#profileclick").click(function() {
+				document.location = "profile.html";
+			});
+			$("#home").click(function() {
+				document.location = "youarein.html";
+			});
+			$("#tracks").click(function() {
+				document.location = "tracks.html"
+			});
+
 		});
-	
+		
 		</script>
+		<title>Open Chord Open Source</title>
+  		<style>
+  			#content {
+  				margin-top: 25px;
+  				margin-left: 5%;
+  				margin-right: 5%;
+			}
 
-<table>
-  <tr>
-    <td>Name:</td>
-    <td><input name="_name" type=text size="50" id="grabName" value='+name+'/></td>
+			#logo{
 
-  </tr>
-  <tr>
-  <td>Location:</td>
-  <td><input name="_location" type=text size="50" id="grabLocation" value='+location+'/></td></tr>
-  <tr><td>Birthday:</td>
-  	<td><input name="_instruments" type=text size="50" id="grabInstruments" value='+instruments+'/></td>
-  	</tr>
-  <tr>
-  	<td>Bio:</td>
-  	<td><textarea rows="4" cols="53" name="comment" id="grabBio" form="main"></textarea></td>
-  	</tr>
-  <tr>
-  	<td>Picture:</td>
-  	<td>Will put a change picture thing here...</td>
-  </tr>
-</table>
-<input type='submit' id='submit'/>
-</html>5
+				width:40%;
+				height:40%;
+				margin-top: -10px;
+			}
+
+			#nav{
+				list-style-type: none;
+				display: inline;
+			}
+
+			#nav li{
+				display: inline;
+				font-size: 1.3em;
+				padding-left: 25px;
+			}
+			body {
+				font-size: 1.1em;
+				font-family: Verdana;
+			}
+
+			#us{
+				float:right;
+				width:250px;
+				height:250px;
+			}
+
+  		</style>
+	</head>
+	</head>
+	<body>
+		<div id="wrapper">
+			<img src="../FinalLogo.jpg" id="logo"/>
+				<ul id = "nav">
+					<li><button id="home">Home</button></li>
+					<li><button id="profileclick" >Profile</button></li>
+					<li><button id="tracks">Find Tracks</button></li>
+					<li><button id="logout">Logout</button></li>
+				</ul>
+			<div id="content">
+			<table>
+			  <tr>
+			    <td>Name:</td>
+			    <td><input name="_name" type=text size="50" id="grabName"/></td>
+
+			  </tr>
+			  <tr>
+			  <td>Location:</td>
+			  <td><input name="_location" type=text size="50" id="grabLocation"/></td></tr>
+			  <tr><td>Instruments:</td>
+			  	<td><input name="_instruments" type=text size="50" id="grabInstruments"/></td>
+			  	</tr>
+			  <tr>
+			  	<td>Bio:</td>
+			  	<td><textarea rows="4" cols="53" name="comment" id="grabBio" form="main"></textarea></td>
+			  	</tr>
+			  <tr>
+			  	
+			  </tr>
+			</table>
+				<input type="submit"id='submit'/>
+				<p></p>
+				<p></p>
+				<p></p>
+				<td>Picture:</td>
+			  	<td>
+			  		<!-- http://howtonode.org/really-simple-file-uploads -->
+			  		<form target="_self" id="uploader"  action="/upload" method="post" name="form" enctype="multipart/form-data">
+			  			<input id="input" class="form-actions" class="ajax-form" type="file" name="file"><input type="submit"></input>
+			  		</form>
+			  	</td>
+			</div>
+		</div>
+	</body>
+</html>

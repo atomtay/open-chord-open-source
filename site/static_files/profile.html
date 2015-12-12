@@ -1,48 +1,271 @@
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				$.ajax({
-					url: "users/" + localStorage['username'],
-					type: "GET",
-					dataType:"json",
-					success: function( data ) {
-						console.log("You got data!", data);
-						$("#name").text(data.name);
-						if(data.location !== "")
-							$("#location").text(data.location);
-						if(data.instruments !== "")
-							$("#instruments").text(data.instruments);
-						if(data.bio !== "")
-							$("#bio").text(data.bio);
+				if(localStorage['viewuser']){
+					$.ajax({
+						url: "users/" + localStorage['viewuser'],
+						type: "GET",
+						dataType: "json",
+						success: function(data) {
+							$("#name").text(data.name);
+							if(data.location !== "")
+								$("#location").text(data.location);
+							if(data.instruments !== "")
+								$("#instruments").text(data.instruments);
+							if(data.bio !== "")
+								$("#bio").text(data.bio);
+							$("#update").attr("style","display:none;");
+							$("#delete").attr("style","display:none;");
+							$("#solouploader").attr("style","display:none;");
+							$("#p").attr("style","display:none;");
+							$("#remixuploader").attr("style","display:none;");
+						},
+					});
+					$.ajax({
+						url: "uploads/images/" + localStorage['viewuser'],
+						type: "GET",
+						dataType:"json",
+						success: function( data ) {
+							console.log(data);
+							$("#profile").attr("src",data.image);
 
 
-					},
-				});
+						},
+					});
+					$.ajax({
+						url: "uploads/solos/" + localStorage['viewuser'],
+						type: "GET",
+						datatype: "json",
+						success: function(data){
+							console.log(data);
+							count = 0;
+							for(e in data){
+								console.log(data[count]);
+								$("#trackslist").append('<option value="' + data[count].track + '">' + data[count].name + ' </option>');
+								count++;
+
+							}
+						},
+					});
+					$.ajax({
+						url: "uploads/remixes/" + localStorage['viewuser'],
+						type: "GET",
+						datatype: "json",
+						success: function(data){
+							count = 0;
+							for(e in data){
+								console.log(data[count]);
+								$("#remixlist").append('<option value="' + data[count].track + '">' + data[count].name + ' </option>');
+								count++;
+
+							}
+						},
+					});
+				}
+				else{
+					$.ajax({
+						url: "users/" + localStorage['username'],
+						type: "GET",
+						dataType:"json",
+						success: function( data ) {
+							console.log("You got data!", data);
+							$("#name").text(data.name);
+							if(data.location !== "")
+								$("#location").text(data.location);
+							if(data.instruments !== "")
+								$("#instruments").text(data.instruments);
+							if(data.bio !== "")
+								$("#bio").text(data.bio);
+
+
+						},
+					});
+					$.ajax({
+						url: "uploads/images/" + localStorage['username'],
+						type: "GET",
+						dataType:"json",
+						success: function( data ) {
+							console.log(data);
+							$("#profile").attr("src",data.image);
+
+
+						},
+					});
+					$.ajax({
+						url: "uploads/solos/" + localStorage['username'],
+						type: "GET",
+						datatype: "json",
+						success: function(data){
+							console.log(data);
+							count = 0;
+							for(e in data){
+								console.log(data[count]);
+								$("#trackslist").append('<option value="' + data[count].track + '">' + data[count].name + ' </option>');
+								count++;
+
+							}
+						},
+					});
+					$.ajax({
+						url: "uploads/remixes/" + localStorage['username'],
+						type: "GET",
+						datatype: "json",
+						success: function(data){
+							count = 0;
+							for(e in data){
+								console.log(data[count]);
+								$("#remixlist").append('<option value="' + data[count].track + '">' + data[count].name + ' </option>');
+								count++;
+
+							}
+						},
+					});
+				}
+				
+				
+				
 				$("#update").click(function() {
-					$("#content").load("update.html");
+					document.location = "update.html";
+					localStorage.removeItem('viewuser');
 				});
+				$("#logout").click(function() {
+					localStorage.removeItem('username');
+					localStorage.removeItem('viewuser');
+					document.location = "index.html";
+				});
+
+				$("#profileclick").click(function() {
+					localStorage.removeItem('viewuser');
+					document.location = "profile.html";
+				});
+				$("#home").click(function() {
+					localStorage.removeItem('viewuser');
+					document.location = "youarein.html";
+				});
+				$("#tracks").click(function() {
+					localStorage.removeItem('viewuser');
+					document.location = "tracks.html";
+				});
+				$("#delete").click(function() {
+					localStorage.removeItem('viewuser');
+					$("#content").load("delete.html");
+				});
+
+				$("#solouploader").submit(function(e) {
+					e.preventDefault();
+
+					var data = new FormData(jQuery('form')[0]);
+
+					$.ajax({
+			            url : "/uploads/solos/" + localStorage['username'],
+			            type : 'POST',
+			            data : data,
+			            cache: false,
+			            contentType: false,
+			            processData: false,
+			            success: function(data){
+			                document.location = "profile.html";
+			            },
+
+	       	 		});
+				});
+				$("#remixuploader").submit(function(e) {
+					e.preventDefault();
+
+					var data = new FormData(jQuery("#remixuploader")[0]);
+
+					$.ajax({
+			            url : "/uploads/remixes/" + localStorage['username'],
+			            type : 'POST',
+			            data : data,
+			            cache: false,
+			            contentType: false,
+			            processData: false,
+			            success: function(data){
+			                document.location = "profile.html";
+			            },
+
+	       	 		});
+				});
+				$("#trackslist").click(function(){
+					$("#solodownload").attr("href",$("#trackslist").val());
+				});
+				$("#remixlist").click(function(){
+					$("#remixdownload").attr("href",$("#remixlist").val());
+				});
+				
+			
 			});
 		</script>
+		<title>Open Chord Open Source</title>
+  		<style>
+  			#content {
+  				margin-top: 25px;
+  				margin-left: 5%;
+  				margin-right: 5%;
+			}
 
-<table cellpadding="10">
-	<tr>
-		<!--Picture, name, location, birthday, bio-->
-		<td>
-			<table border="1">
+			#logo{
+
+				width:40%;
+				height:40%;
+				margin-top: -10px;
+			}
+
+			#nav{
+				list-style-type: none;
+				display: inline;
+			}
+
+			#nav li{
+				display: inline;
+				font-size: 1.3em;
+				padding-left: 25px;
+			}
+			body {
+				font-size: 1.1em;
+				font-family: Verdana;
+			}
+
+			#us{
+				float:right;
+				width:250px;
+				height:250px;
+			}
+
+  		</style>
+	</head>
+	<body>
+		<div id="wrapper">
+			<img src="../FinalLogo.jpg" id="logo"/>
+				<ul id = "nav">
+					<li><button id="home">Home</button></li>
+					<li><button id="profileclick" >Profile</button></li>
+					<li><button id="tracks">Find Tracks</button></li>
+					<li><button id="logout">Logout</button></li>
+				</ul>
+			<div id="content">
+			<table cellpadding="10">
 				<tr>
-					<td rowspan="3">Image image image</td>
-					<th id="name">[Name]</th>
+					<!--Picture, name, location, birthday, bio-->
+					<td>
+						<table border="1">
+							<tr>
+								<td rowspan="3"><img id="profile" height="250" width="250"/></td>
+								<th id="name">[Name]</th>
+							</tr>
+							<tr>
+								<td><b>Location: </b><i id="location">This user hasn't input their location</i></td>
+							</tr>
+							<tr>
+							<td><b>Instruments: </b><i id="instruments">This user hasn't input their instruments</i></td>
+							</tr>
+							<tr>
+					<td colspan="2"><b>Bio: </b><i id="bio">This user hasn't put anything in their bio</i></td>
 				</tr>
-				<tr>
-					<td><i id="location">This user hasn't input their location</i></td>
-				</tr>
-				<tr>
-				<td><i id="instruments">This user hasn't input their instruments</i></td>
-				</tr>
-				<tr>
-		<td colspan="2"><i id="bio">This user hasn't put anything in their bio</i></td>
-	</tr>
-</table>
+			</table>
 					</td>
 					<!--Vertical line dividing two info sections-->
 					<td><hr class="vertical"/></td>
@@ -51,12 +274,38 @@
 						<table border="1">
 							<tr>
 								<th>Solo Tracks</th>
+								<th>
+									<p>Upload a solo track:</p>
+									<form target="_self" id="solouploader"  action="/upload" method="post" name="file" enctype="multipart/form-data">
+				  						<input class="form-actions" class="ajax-form" type="file" name="file"><input type="submit"></input>
+				  					</form>
+				  					<select id="trackslist">
+				  						<option selected="true" disabled="disabled" value="base">Please Select a track to download</option>
+				  					</select>
+				  					<a id="solodownload">Download this track!</a>
+								</th>
+								
+			  					
 							</tr>
 							<tr>
 								<th>Remixes</th>
+								<th>
+									<p>Upload a remix!</p>
+									<form target="_self" id="remixuploader"  action="/upload" method="post" name="file" enctype="multipart/form-data">
+				  						<input class="form-actions" class="ajax-form" type="file" name="file"><input type="submit"></input>
+				  					</form>
+				  					<select id="remixlist">
+				  						<option selected="true" disabled="disabled" value="base">Please Select a track to download</option>
+				  					</select>
+				  					<a id="remixdownload">Download this track!</a>
+								</th>
 							</tr>
 						</table>
 					</td>
 				</tr>
 			</table>
-			<button id="update">Update your profile</button>
+			<button id="update">Update your profile</button>	
+			<button src="delete.html" id="delete">Delete your profile</button>
+			</div>
+		</div>
+	</body>

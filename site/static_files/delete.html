@@ -1,0 +1,59 @@
+<title>Delete Account</title>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+			$(document).ready(function() {
+				$("#logout").click(function() {
+					localStorage.removeItem('username');
+				});
+	
+				$("#profileLink").click(function() {
+					$("#profileLink").attr("href", profileLink);
+				});
+				$("#dont").click(function() {
+					document.location = "profile.html";
+				});
+				$("#definitelyDelete").click(function(){
+					$.ajax({
+						url: "users/" + localStorage['username'],
+						type: "DELETE",
+						success: function (data) {
+							localStorage.removeItem("username");
+							document.location = "index.html";
+						},
+					});
+
+				});
+			})
+	</script>
+	<style>
+  			#content {
+  				margin-top: 25px;
+  				margin-left: 5%;
+  				margin-right: 5%;
+			}
+			#logo{
+				width:40%;
+				height:40%;
+				margin-top: -10px;
+			}
+			#nav{
+				list-style-type: none;
+				display: inline;
+			}
+			#nav li{
+				display: inline;
+				font-size: 1.3em;
+				padding-left: 25px;
+			}
+			body {
+				font-size: 1.1em;
+				font-family: Verdana;
+			}
+  		</style>
+	</head>
+	<body>
+We're sad to see you go. Are you sure you want to delete your account?
+<p><button id="definitelyDelete">Yes, delete my account.</a></p>
+<p><button id="dont">No. Take me back!</p>
+	</body>
+</html>
